@@ -1,0 +1,13 @@
+current directory: /Users/Yohan/Feeder/vendor/cache/ruby/2.2.0/gems/json-1.8.3/ext/json
+/Users/Yohan/.rbenv/versions/2.2.3/bin/ruby -r ./siteconf20160804-79816-d1u3q6.rb extconf.rb
+creating Makefile
+
+current directory: /Users/Yohan/Feeder/vendor/cache/ruby/2.2.0/gems/json-1.8.3/ext/json
+make "DESTDIR=" clean
+
+current directory: /Users/Yohan/Feeder/vendor/cache/ruby/2.2.0/gems/json-1.8.3/ext/json
+make "DESTDIR="
+make: Nothing to be done for `all'.
+
+current directory: /Users/Yohan/Feeder/vendor/cache/ruby/2.2.0/gems/json-1.8.3/ext/json
+make "DESTDIR=" install

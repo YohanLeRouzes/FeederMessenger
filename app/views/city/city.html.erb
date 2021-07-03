@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Feeder</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <style>
+  /* This Code is the propriety of Yohan Le Rouzes */
+  	body {
+  	background-color: #f1f1f1;
+  	}
+  	
+  	.col-sm-8 {
+  	background-color: white;
+  	}
+  	/* Circle and adjust the pictures */
+  	img {
+  	margin: 5px;
+    border: 1px solid #ccc;
+    float: left;
+    width: 60px;
+  	}
+  	
+  	
+    /* Remove the navbar's default margin-bottom and rounded borders */ 
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+    
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {height: 100%;}
+    
+    /* Set gray background color and 100% height */
+    .sidenav {
+      padding-top: 20px;
+      background-color: #f1f1f1;
+      height: 100%;;
+    }
+    
+    /* Set black background color, white text and some padding */
+    footer {
+      background-color: #555;
+      color: white;
+      padding: 15px;
+    }
+    
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: 100%;;
+        padding: 15px;
+      }
+      .row.content {height: 100%;;} 
+    }
+    
+   .post {
+    padding: 25px;
+    padding-bottom: 55px;
+    }
+    
+    
+    
+    .circle-icon .glyphicon {
+     background-color: white;
+        color: rgb(66,95,156);
+        padding: 15px;
+        font-size: 2em;
+        border-radius: 50%;   
+        margin: 5px;
+        border: 3px solid rgb(66,95,156); 
+        float: left;
+}
+    
+    /* The max width is dependant on the container (more info below) */
+.popover{
+    width: 400px;
+    margin: 25px; /* Max Width of the popover (depending on the container!) */
+}
+
+.btn-sm  {
+margin: 1px;
+
+}
+    
+.btn-xs  {
+margin: 1px;
+
+}  
+
+.img-circle {
+    border-radius: 50%;
+}  
+
+.navlink {
+	color: white;
+}
+
+  </style>
+  
+
+  
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+     <a class="navbar-brand" <%= link_to "Feeder", root_path %>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="/">Feed</a></li>
+        <li><a href="/notifications">Notifications</a></li>
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+      	
+      	<form class="navbar-form navbar-left" role="search" action="Search.html">
+  <div class="form-group">
+    <input type="text" class="form-control" placeholder="Recherchez">
+     <a href="Search.html"><button type="button&submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button></a>
+  </div>  
+</form>
+
+
+      	 	<li><a href="/profil"><%= current_user.first_name %></a><li><a href="#" id="popover" data-placement="bottom"  data-toggle="popover"><span class="glyphicon glyphicon-cog" ></span></a></li><li><a href="#" id="popover" data-placement="bottom"  data-toggle="popover"></a></li></li>
+     
+      	 <div id="popover-head" class="hide">
+      	 
+</div>
+<div id="popover-content" class="hide">
+ 
+  <p>
+<button type="button" class="btn btn-default btn-lg btn-block">
+
+
+	  
+      	 	<%= link_to "Deconnexion", logout_path, method: "delete" %>
+
+
+
+</button>
+
+</p>
+</div>
+     </ul>
+    </div>
+  </div>
+</nav>
+
+      	 
+    
+       
+
+ 
+
+  
+<div class="container-fluid text-center">    
+  <div class="row content">
+    <div class="col-sm-2 sidenav">
+      
+   
+   <ul class="list-group">
+      <li class="list-group-item"><span class="badge">[NumberOfNewPosts]</span><a href="/"><span class="glyphicon glyphicon-globe" aria-hidden="true"></span>Monde</a></li></a></li>
+      <li class="list-group-item"><span class="badge">[NumberOfNewPosts]</span><a href="/country" ><span class="glyphicon glyphicon-globe" aria-hidden="true"></span>[UserCountry]</a></li>
+      <li class="list-group-item"><span class="badge">[NumberOfNewPosts]</span><a href="/state" ><span class="glyphicon glyphicon-globe" aria-hidden="true"></span>[UserState]</a></li>
+      <li class="list-group-item active"><span class="badge">[NumberOfNewPosts]</span><a class="navlink" href="/city" ><span class="glyphicon glyphicon-globe" aria-hidden="true"></span>[UserCity]</a></li>
+
+   </ul>
+      
+    </div>
+      
+    <div class="col-sm-8 text-left"> 
+    
+     	<div class="post">
+  				<div class="col-lg-8">
+    				<div class="input-group">
+      					<input type="text" class="form-control" placeholder="Exprimez-vous...">
+      					<span class="input-group-btn">
+        				<button class="btn btn-default" type="button">Feed the Feed !</button>        
+      					</span>     
+    				</div><!-- /input-group -->    
+  				</div><!-- /col-lg-6 -->
+			</div><!-- /.post -->
+    
+ 
+ <div class="media">
+  <a class="media-left" href="#">
+    <div class='circle-icon'>
+         <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+	  </div>
+  </a>
+  <div class="media-body">
+    <h4 class="media-heading">[Username]</h4>
+ <p>[Post]</p>
+ <br>
+ <a href="#" class="btn btn-xs btn-primary ">[NumberOfLikes] <span class="glyphicon glyphicon-heart "></span> J'aime</a><a  href="#" data-toggle="modal" data-target="#myModal" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-comment"></span> Commenter</a>
+  </div>
+</div>
+<hr>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+       <div class="media">
+  <a class="media-left" href="#">
+    <div class='circle-icon'>
+         <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+	  </div>
+  </a>
+  <div class="media-body">
+    <h4 class="media-heading">[Username]</h4>
+ <p>[Post]</p>
+ <br>
+ <a href="#" class="btn btn-xs btn-primary">[NumberOfLikes] <span class="glyphicon glyphicon-heart"></span> J'aime</a><a  href="#" data-toggle="modal" data-target="#myModal" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-comment"></span> Commenter</a>
+  </div>
+</div>
+<hr>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">[Username]</h4>
+      </div>
+      <div class="modal-body">
+        <p>[Post]</p>
+        <hr>
+        <fieldset class="form-group">
+    <label for="exampleTextarea">Ecrivez votre commentaire:</label>
+    <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
+  </fieldset>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" >J'aime</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Commenter</button>
+      </div>
+    </div>
+  </div>
+</div>
+      
+      
+      
+       <div class="media">
+  <a class="media-left" href="#">
+    <div class='circle-icon'>
+         <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+	  </div>
+  </a>
+  <div class="media-body">
+    <h4 class="media-heading">[Username]</h4>
+ <p>[Post] </p>
+ <br>
+ <a href="#" class="btn btn-xs btn-primary">[NumberOfLikes] <span class="glyphicon glyphicon-heart"></span> J'aime</a><a  href="#" data-toggle="modal" data-target="#myModal" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-comment"></span> Commenter</a>
+  </div>
+</div>
+<hr>
+      
+      
+       <div class="media">
+  <a class="media-left" href="#">
+    <div class='circle-icon'>
+         <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+	  </div>
+  </a>
+  <div class="media-body">
+    <h4 class="media-heading">[Username]</h4>
+ <p>[Post] </p>
+ <br>
+ <a href="#" class="btn btn-xs btn-primary">[NumberOfLikes] <span class="glyphicon glyphicon-heart"></span> J'aime</a><a  href="#" data-toggle="modal" data-target="#myModal" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-comment"></span> Commenter</a>
+  </div>
+</div>
+<hr>
+   	  
+   	   <div class="media">
+  <a class="media-left" href="#">
+    <div class='circle-icon'>
+         <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+	  </div>
+  </a>
+  <div class="media-body">
+    <h4 class="media-heading">[Username]</h4>
+ <p>[Post] </p>
+ <br>
+ <a href="#" class="btn btn-xs btn-primary">[NumberOfLikes] <span class="glyphicon glyphicon-heart"></span> J'aime</a><a  href="#" data-toggle="modal" data-target="#myModal" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-comment"></span> Commenter</a>
+  </div>
+</div>
+<hr>
+   	  
+   	   <div class="media">
+  <a class="media-left" href="#">
+    <div class='circle-icon'>
+         <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+	  </div>
+  </a>
+  <div class="media-body">
+    <h4 class="media-heading">[Username]</h4>
+ <p>[Post] </p>
+ <br>
+ <a href="#" class="btn btn-xs btn-primary">[NumberOfLikes] <span class="glyphicon glyphicon-heart"></span> J'aime</a><a  href="#" data-toggle="modal" data-target="#myModal" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-comment"></span> Commenter</a>
+  </div>
+</div>
+<hr>
+   	  
+   	  
+   	   <div class="media">
+  <a class="media-left" href="#">
+    <div class='circle-icon'>
+         <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+	  </div>
+  </a>
+  <div class="media-body">
+    <h4 class="media-heading">[Username]</h4>
+ <p>[Post] </p>
+ <br>
+ <a href="#" class="btn btn-xs btn-primary">[NumberOfLikes] <span class="glyphicon glyphicon-heart"></span> J'aime</a><a  href="#" data-toggle="modal" data-target="#myModal" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-comment"></span> Commenter</a>
+  </div>
+</div>
+<hr>
+   
+    </div> 
+       
+    <div class="col-sm-2 sidenav">
+      <div class="well">
+        <p>ADS</p>
+      </div>
+      <div class="well">
+        <p>ADS</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="container-fluid text-center">
+  <p>© 2016 Feeder, Inc.</p>
+</footer>
+
+<script>
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover(); 
+    $('[data-toggle="popover"]').popover({ html : true});
+});
+
+$('#popover').popover({ 
+    html : true,
+    title: function() {
+      return $("#popover-head").html();
+    },
+    content: function() {
+      return $("#popover-content").html();
+    }
+});
+</script>
+
+
+</body>
+</html>
